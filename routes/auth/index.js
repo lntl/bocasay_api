@@ -5,6 +5,7 @@ const	axios = require('axios'),
       router = express.Router(),
       jwt_decode = require('jwt-decode');
 
+      
 router.post('/getjwt', function(req, res, next) {
   axios({
     method: 'post',
