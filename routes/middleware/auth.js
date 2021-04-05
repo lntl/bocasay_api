@@ -1,30 +1,13 @@
 
-const jwt_decode = require('jwt-decode'),
-			axios = require('axios'),
-			qs = require('qs');
+const axios = require('axios')
 
 module.exports = (req, res, next) => {
-	
-  if(!req.query.jwt){
-    axios({
-      method: 'post',
-      url: 'http://127.0.0.1:8000/api/auth/login', 
-      data : qs.stringify({
-        email: "luc.natale@gmail.com",
-        password: "Bocasay2021"
-      }),
-      headers:{
-        'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
-      }
-    }).then(function(response) {
-      var jwt = jwt_decode(response.data.jwt);
+    let jwt= req.query.jwt;
+    axios.get('http://127.0.0.1:8000/api/auth/login?jwt='+req.query.jwt).then(function (response) {
+      //REQ = TRUE = ADMIN
+      console.log(response.data.jwt);
       next();
-    }).catch(function(error) {
-      res.send('Middleware / user error login');
+    }).catch((error)=>{
+      res.send(error.response.data);
     })
-  } else {
-    var jwt = jwt_decode(req.query.jwt);
-    next();
-  }
-  
 };
