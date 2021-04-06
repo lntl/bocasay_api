@@ -3,7 +3,7 @@ const express = require('express'),
 			cors = require('cors'),
 			mysql = require('mysql'),
 			app = express(),
-			port = 3000
+			port = 3333
 
 /*APP USE CONFIG*/
 app.use(cors());
